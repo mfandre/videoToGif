@@ -22,10 +22,10 @@ def extract_Nseconds_into_frames(file:str, n_seconds:int) -> np.ndarray:
     fps = iio.immeta(file, plugin="pyav")["fps"]
     print(f"Video FPS: {fps}")
 
-    step = int((totalframes/fps) / n_seconds)
+    step = int(totalframes / (n_seconds*fps))
     print(f"Step to achieve number of seconds: {step}")
 
-    if step > totalframes:
+    if step <= 1:
         raise Exception("Your video file dont have frames enough to be extract in desire FPS")
 
     frames_to_be_extracted = []
@@ -49,3 +49,5 @@ def frames_to_gif(gif_path:str, frames:np.ndarray, fps:int):
 
 frames, fps = extract_Nseconds_into_frames("imageio:cockatoo.mp4", 3)
 frames_to_gif("cockatoo.gif", frames, fps)
+
+
