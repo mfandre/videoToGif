@@ -41,12 +41,11 @@ def extract_Nseconds_into_frames(file:str, n_seconds:int) -> np.ndarray:
     print(f"Stacking frames")
     frames = np.stack(img_list, axis=0)
 
-    return frames
+    return frames, fps
 
-def frames_to_gif(gif_path:str, frames:np.ndarray):
+def frames_to_gif(gif_path:str, frames:np.ndarray, fps:int):
     print(f"Converting frames into GIF")
-    iio.imwrite(gif_path, frames)
+    iio.imwrite(gif_path, frames, duration=1/fps/1000)
 
-frames = extract_Nseconds_into_frames("imageio:cockatoo.mp4", 3)
-frames_to_gif("cockatoo.gif", frames)
-
+frames, fps = extract_Nseconds_into_frames("imageio:cockatoo.mp4", 3)
+frames_to_gif("cockatoo.gif", frames, fps)
