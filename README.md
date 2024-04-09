@@ -1,1 +1,3 @@
-# videoToGif
+# VideoToGif
+
+Convert video to GIF
